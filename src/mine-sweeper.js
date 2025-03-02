@@ -1,4 +1,4 @@
-const { NotImplementedError } = require('../extensions/index.js');
+const { NotImplementedError } = require('../extensions/index.js')
 
 /**
  * In the popular Minesweeper game you have a board with some mines and those cells
@@ -23,11 +23,40 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+function minesweeper(matrix) {
+  const rows = matrix.length
+  const cols = matrix[0].length
+  const result = Array.from({ length: rows }, () => Array(cols).fill(0))
+
+  const directions = [
+    [-1, -1],
+    [-1, 0],
+    [-1, 1],
+    [0, -1],
+    [0, 1],
+    [1, -1],
+    [1, 0],
+    [1, 1],
+  ]
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      if (matrix[r][c]) {
+        for (const [dr, dc] of directions) {
+          const nr = r + dr
+          const nc = c + dc
+
+          if (nr >= 0 && nr < rows && nc >= 0 && nc < cols) {
+            result[nr][nc]++
+          }
+        }
+      }
+    }
+  }
+
+  return result
 }
 
 module.exports = {
-  minesweeper
-};
+  minesweeper,
+}
